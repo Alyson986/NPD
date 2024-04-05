@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD</title>
+    <link rel="stylesheet" href="assets\css\style.css">
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    
+</head>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <span>Cadastro de Usuários</span>
+      <button onclick="openModal()" id="new">Incluir</i></button>
+    </div>
+
+        <div class="divTable">
+            <table>
+              <thead>
+                <tr>
+                  <th>Nome</th>
+                  <th>Email</th>
+                  <th>Objetivo</th>
+                  <th>Plano</th>
+                  <th class="acao">Editar</th>
+                  <th class="acao">Excluir</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+          </div>
+      
+          <div class="modal-container">
+            <div class="modal">
+              <form>
+                <label for="m-nome">Nome</label>
+                <input id="m-nome" type="text" required />
+
+                <label for="m-email">Email</label>
+                <input id="m-email" type="text" required />
+        
+                <label for="m-objetivo">Objetivo</label>
+                <input id="m-objetivo" type="text" required />
+
+                <label for="m-plano">Plano</label>
+                <input id="m-plano" type="text" required />
+
+                <button id="btnSalvar">Salvar</button>
+              </form>
+            </div>
+          </div>
+    </div>
+
+    <script src="assets\js\script.js"></script>
+</body>
+</html>
+
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
+  import { getDatabase, set, ref, push, child } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-database.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyDXZYK9ii58bfj5Nd52WP72cAN2__Jqr4M",
+    authDomain: "app-personal-c8e17.firebaseapp.com",
+    databaseURL: "https://app-personal-c8e17-default-rtdb.firebaseio.com",
+    projectId: "app-personal-c8e17",
+    storageBucket: "app-personal-c8e17.appspot.com",
+    messagingSenderId: "161913955018",
+    appId: "1:161913955018:web:0d08da8bf5895353eb0a33"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+
+  const database = getDatabase(app);
+
+  btnSalvar.addEventListener('click',(e) => {
+   var nome = document.getElementById('m-nome').value;
+   var email = document.getElementById('m-email').value;
+   var objetivo = document.getElementById('m-objetivo').value;
+   var plano = document.getElementById('m-plano').value;
+
+   const userId = push(child(ref(database), 'users')).key;
+
+   set(ref(database, 'users/' + userId), {
+   nome: nome,
+   email: email,
+   objetivo: objetivo,
+   plano : plano
+  });
+  alert('Salvo');
+
+  })
+
+</script>
+
+
